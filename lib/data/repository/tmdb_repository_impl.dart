@@ -11,11 +11,10 @@ class TmdbRepositoryImpl implements TmdbRepository {
   @override
   Future<ApiResult<List<MovieListModel>>> getNowPlayingMovies(int page) async {
     final apiCall = await _remoteSource.getNowPlayingMovies(page);
-    if (apiCall is Success<MovieListResponse>) {
+    if (apiCall is ApiSuccess<MovieListResponse>) {
       final mappedData = apiCall.data.toModel();
-      return Success(mappedData);
-    } else {
-      return Failed((apiCall as Failed).errorMsg);
+      return ApiSuccess(mappedData);
     }
+    return ApiFailed((apiCall as ApiFailed).errorMsg);
   }
 }

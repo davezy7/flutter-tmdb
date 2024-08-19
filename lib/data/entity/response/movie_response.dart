@@ -13,7 +13,7 @@ class MovieListResponse {
   });
 
   List<MovieListModel> toModel() {
-    final List<MovieListModel> mappedResult = List.empty();
+    final List<MovieListModel> mappedResult = List.empty(growable: true);
     results?.forEach((result) {
       mappedResult.add(result.toModel());
     });

@@ -1,13 +1,16 @@
+import 'package:meta/meta.dart';
+
+@immutable
 sealed class ApiResult<T> {}
 
-class Success<T> implements ApiResult<T> {
+class ApiSuccess<T> extends ApiResult<T> {
   final T data;
 
-  Success(this.data);
+  ApiSuccess(this.data);
 }
 
-class Failed<T> implements ApiResult<T> {
+class ApiFailed<T> extends ApiResult<T> {
   final String? errorMsg;
 
-  Failed(this.errorMsg);
+  ApiFailed(this.errorMsg);
 }
