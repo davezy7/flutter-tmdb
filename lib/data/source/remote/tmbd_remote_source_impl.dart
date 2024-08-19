@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:tmdb/config/env.dart';
 import 'package:tmdb/config/microservice.dart';
 import 'package:tmdb/data/entity/response/movie_response.dart';
 import 'package:tmdb/data/source/base/base_remote_source.dart';
