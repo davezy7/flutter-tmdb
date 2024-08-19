@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:tmdb/config/env.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
 import 'package:tmdb/util/extensions.dart';
 
@@ -84,7 +85,7 @@ class MovieListResultResponse {
       originalTitle: originalTitle.orEmpty(),
       overview: overview.orEmpty(),
       popularity: popularity.orZero(),
-      posterPath: posterPath.orEmpty(),
+      posterPath: Env.imageUrl + posterPath.orEmpty(),
       releaseDate: releaseDate.orEmpty(),
       title: title.orEmpty(),
       video: video.orFalse(),

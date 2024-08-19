@@ -9,18 +9,23 @@ class DashboardCubit extends Cubit<UiState<List<MovieListModel>>> {
   DashboardCubit() : super(StateInitial());
 
   final TmdbRepository _repository = TmdbRepositoryImpl();
-  final int _currentPage = 1;
+  final List<MovieListModel> movieList = List.empty(growable: true);
+  int _currentPage = 1;
 
   void getNowPlayingMovies() {
-    emit(StateLoading());
+    if (movieList.isEmpty) emit(StateLoading());
     _repository.getNowPlayingMovies(_currentPage).then((repoCall) {
-      if (repoCall is ApiSuccess<List<MovieListModel>>) {
-        emit(StateSuccess(data: (repoCall).data));
-      } else {
-        emit(StateFailed(errorMsg: (repoCall as ApiFailed).errorMsg));
+      switch (repoCall) {
+        case ApiSuccess<List<MovieListModel>>():
+          movieList.addAll(repoCall.data);
+          emit(StateSuccess(data: movieList));
+          break;
+        case ApiFailed<List<MovieListModel>>():
+          emit(StateFailed(errorMsg: repoCall.errorMsg));
+          break;
       }
     });
   }
 
-  void incrementPage() => _currentPage + 1;
+  void incrementPage() => _currentPage += 1;
 }
