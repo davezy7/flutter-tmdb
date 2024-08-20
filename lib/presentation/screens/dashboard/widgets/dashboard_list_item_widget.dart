@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
+import 'package:tmdb/presentation/component/tmdb_image_loader.dart';
 
 class DashboardListItemWidget extends StatelessWidget {
   const DashboardListItemWidget(
@@ -17,24 +17,7 @@ class DashboardListItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         key: Key(id.toString()),
         children: [
-          SizedBox(
-            width: 100,
-            height: 150,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(12)),
-              child: CachedNetworkImage(
-                key: Key(item.posterPath),
-                imageUrl: item.posterPath,
-                progressIndicatorBuilder: (context, url, progress) => Center(
-                  child: CircularProgressIndicator(
-                    key: Key(url),
-                    value: progress.progress,
-                  ),
-                ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
-            ),
-          ),
+          TmdbImageLoader(imageUrl: item.posterPath, width: 100, height: 150),
           const SizedBox(width: 12),
           Flexible(
             child: Column(
