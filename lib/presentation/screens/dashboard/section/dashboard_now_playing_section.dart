@@ -50,13 +50,11 @@ class _DashboardNowPlayingSectionState
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NowPlayingCubit, UiState<List<MovieListModel>>>(
-      builder: (context, state) => Scaffold(
-        body: switch (state) {
-          StateInitial() => const SizedBox(),
-          StateLoading() => const CommonLoading(),
-          _ => _nowPlayingSection(state)
-        },
-      ),
+      builder: (context, state) => switch (state) {
+        StateInitial() => const SizedBox(),
+        StateLoading() => const CommonLoading(),
+        _ => _nowPlayingSection(state)
+      },
     );
   }
 

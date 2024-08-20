@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/presentation/component/tmdb_toggle_tab.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/now_playing_cubit.dart';
+import 'package:tmdb/presentation/screens/dashboard/cubit/popular_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/section/dashboard_now_playing_section.dart';
 import 'package:tmdb/presentation/screens/dashboard/section/dashboard_popular_section.dart';
 
@@ -24,7 +25,10 @@ class DashboardScreen extends StatelessWidget {
             ),
             Container(
               constraints: const BoxConstraints(maxHeight: 250),
-              child: const DashboardPopularSection(),
+              child: BlocProvider(
+                create: (_) => PopularCubit()..getPopularMovies(),
+                child: const DashboardPopularSection(),
+              ),
             ),
             Expanded(
               child: TmdbToggleTab(

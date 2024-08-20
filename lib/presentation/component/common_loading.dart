@@ -15,18 +15,16 @@ class CommonLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          SizedBox(
-            height: height,
-            width: width,
-            child: CircularProgressIndicator(strokeWidth: strokeWidth),
-          ),
-          if (message.isNotEmpty) const SizedBox(height: 8),
-          if (message.isNotEmpty) Text(message)
-        ],
-      ),
+    return Column(
+      children: [
+        SizedBox(
+          height: height,
+          width: width,
+          child: CircularProgressIndicator(strokeWidth: strokeWidth),
+        ),
+        if (message.isNotEmpty) const SizedBox(height: 8),
+        if (message.isNotEmpty) Text(message)
+      ],
     );
   }
 }

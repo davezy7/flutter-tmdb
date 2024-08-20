@@ -19,4 +19,29 @@ final class TmbdRemoteSourceImpl extends BaseRemoteSource
       return ApiFailed(e.toString());
     }
   }
+
+  @override
+  Future<ApiResult<MovieListResponse>> getUpcomingMovies(int page) async {
+    try {
+      final response = await getDio().get("${Microservice.v3Movie}/upcoming",
+          queryParameters: {'page': page});
+      return response.statusCode == 200 && response.data != null
+          ? ApiSuccess(MovieListResponse.fromJson(response.data))
+          : ApiFailed(response.statusMessage);
+    } on DioException catch (e) {
+      return ApiFailed(e.toString());
+    }
+  }
+
+  @override
+  Future<ApiResult<MovieListResponse>> getPopularMovies() async {
+    try {
+      final response = await getDio().get("${Microservice.v3Movie}/popular");
+      return response.statusCode == 200 && response.data != null
+          ? ApiSuccess(MovieListResponse.fromJson(response.data))
+          : ApiFailed(response.statusMessage);
+    } on DioException catch (e) {
+      return ApiFailed(e.toString());
+    }
+  }
 }
