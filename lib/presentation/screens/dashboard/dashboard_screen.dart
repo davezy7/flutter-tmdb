@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/presentation/component/tmdb_toggle_tab.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/now_playing_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/popular_cubit.dart';
+import 'package:tmdb/presentation/screens/dashboard/cubit/upcoming_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/section/dashboard_now_playing_section.dart';
 import 'package:tmdb/presentation/screens/dashboard/section/dashboard_popular_section.dart';
+import 'package:tmdb/presentation/screens/dashboard/section/dashboard_upcoming_section.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -38,6 +40,13 @@ class DashboardScreen extends StatelessWidget {
                     child: BlocProvider(
                       create: (_) => NowPlayingCubit()..getNowPlayingMovies(),
                       child: const DashboardNowPlayingSection(),
+                    ),
+                  ),
+                  ToggleTabItemModel(
+                    title: "Upcoming Movies",
+                    child: BlocProvider(
+                      create: (_) => UpcomingCubit()..getUpcomingMovies(),
+                      child: const DashboardUpcomingSection(),
                     ),
                   ),
                 ],

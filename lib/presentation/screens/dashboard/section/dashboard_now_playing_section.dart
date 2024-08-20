@@ -52,7 +52,11 @@ class _DashboardNowPlayingSectionState
     return BlocBuilder<NowPlayingCubit, UiState<List<MovieListModel>>>(
       builder: (context, state) => switch (state) {
         StateInitial() => const SizedBox(),
-        StateLoading() => const CommonLoading(),
+        StateLoading() => Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(32),
+            child: const CommonLoading(),
+          ),
         _ => _nowPlayingSection(state)
       },
     );

@@ -41,7 +41,8 @@ class _TmdbToggleTabState extends State<TmdbToggleTab>
                         const EdgeInsets.only(left: 16, right: 16, bottom: 8),
                     child: Text(
                       item.title,
-                      style: const TextStyle(fontSize: 18, color: Colors.cyan),
+                      maxLines: 1,
+                      style: const TextStyle(fontSize: 16, color: Colors.cyan),
                     ),
                   ))
               .toList(),
