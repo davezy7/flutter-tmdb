@@ -2,45 +2,40 @@ import 'dart:convert';
 
 import 'package:tmdb/config/env.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
+import 'package:tmdb/domain/model/movie_list_wrapper_model.dart';
 import 'package:tmdb/util/extensions.dart';
 
 class MovieListResponse {
   int? page;
   List<MovieListResultResponse>? results;
+  int? totalPages;
 
-  MovieListResponse({
-    this.page,
-    this.results,
-  });
+  MovieListResponse({this.page, this.results, this.totalPages});
 
-  List<MovieListModel> toModel() {
+  MovieListWrapperModel toModel() {
     final List<MovieListModel> mappedResult = List.empty(growable: true);
     results?.forEach((result) {
       mappedResult.add(result.toModel());
     });
-    return mappedResult;
+    return MovieListWrapperModel(
+      page: page.orZero(),
+      totalPages: totalPages.orZero(),
+      movies: mappedResult,
+    );
   }
 
   factory MovieListResponse.fromRawJson(String str) =>
       MovieListResponse.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
-
   factory MovieListResponse.fromJson(Map<String, dynamic> json) =>
       MovieListResponse(
         page: json["page"],
+        totalPages: json["total_pages"],
         results: json["results"] == null
             ? []
             : List<MovieListResultResponse>.from(json["results"]!
                 .map((x) => MovieListResultResponse.fromJson(x))),
       );
-
-  Map<String, dynamic> toJson() => {
-        "page": page,
-        "results": results == null
-            ? []
-            : List<dynamic>.from(results!.map((x) => x.toJson())),
-      };
 }
 
 class MovieListResultResponse {

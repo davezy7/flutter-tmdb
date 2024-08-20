@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
 import 'package:tmdb/presentation/component/common_loading.dart';
+import 'package:tmdb/presentation/component/common_reload.dart';
 import 'package:tmdb/presentation/component/ui_state.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/now_playing_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/widgets/dashboard_list_item_widget.dart';
-import 'package:tmdb/util/extensions.dart';
 
 class DashboardNowPlayingSection extends StatefulWidget {
   const DashboardNowPlayingSection({super.key});
@@ -34,12 +34,17 @@ class _DashboardNowPlayingSectionState
   }
 
   void _onBottomReached() {
-    if (!_scrollController.hasClients) return;
-    if (_scrollController.position.atEdge &&
-        _scrollController.position.pixels > 0) {
+    if (_hasReachedBottom) {
       context.read<NowPlayingCubit>().incrementPage();
       context.read<NowPlayingCubit>().getNowPlayingMovies();
     }
+  }
+
+  bool get _hasReachedBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
   }
 
   @override
@@ -49,26 +54,43 @@ class _DashboardNowPlayingSectionState
         body: switch (state) {
           StateInitial() => const SizedBox(),
           StateLoading() => const CommonLoading(),
-          StateSuccess() => _successWidget(state.data),
-          StateFailed() => _errorWidget(state.errorMsg.orDefault("Error Brow")),
+          _ => _nowPlayingSection(state)
         },
       ),
     );
   }
 
-  Widget _successWidget(List<MovieListModel> movieList) {
-    if (movieList.isEmpty) {
+  Widget _nowPlayingSection(UiState<List<MovieListModel>> state) {
+    if (state is StateFailed) {
+      return CommonReload(
+          onRetry: () => context.read<NowPlayingCubit>().getNowPlayingMovies());
+    }
+    if (state is StateSuccess<List<MovieListModel>> && state.data.isEmpty) {
       return const Center(child: Text("Data is empty"));
     }
+
+    final List<MovieListModel> movieList =
+        (state as StateSuccess<List<MovieListModel>>).data;
     return ListView.builder(
-      itemBuilder: (BuildContext context, int index) => DashboardListItemWidget(
-        id: movieList[index].id,
-        item: movieList[index],
-      ),
-      itemCount: movieList.length,
+      itemBuilder: (BuildContext context, int index) =>
+          index == movieList.length
+              ? state is StateFailed
+                  ? CommonReload(
+                      onRetry: () =>
+                          context.read<NowPlayingCubit>().getNowPlayingMovies(),
+                    )
+                  : const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: CommonLoading(),
+                    )
+              : DashboardListItemWidget(
+                  id: movieList[index].id,
+                  item: movieList[index],
+                ),
+      itemCount: context.read<NowPlayingCubit>().hasReachedMax
+          ? movieList.length
+          : movieList.length + 1,
       controller: _scrollController,
     );
   }
-
-  Widget _errorWidget(String errorMsg) => Center(child: Text(errorMsg));
 }

@@ -32,11 +32,17 @@ class _TmdbToggleTabState extends State<TmdbToggleTab>
     return Column(
       children: [
         TabBar(
+          indicatorColor: Colors.cyan,
           controller: _tabController,
+          dividerColor: Colors.transparent,
           tabs: widget.children
               .map((item) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(item.title),
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+                    child: Text(
+                      item.title,
+                      style: const TextStyle(fontSize: 18, color: Colors.cyan),
+                    ),
                   ))
               .toList(),
         ),
