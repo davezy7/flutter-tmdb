@@ -5,8 +5,8 @@ import 'package:tmdb/domain/model/movie_list_model.dart';
 import 'package:tmdb/domain/repository/tmdb_repository.dart';
 import 'package:tmdb/presentation/component/ui_state.dart';
 
-class DashboardCubit extends Cubit<UiState<List<MovieListModel>>> {
-  DashboardCubit() : super(StateInitial());
+class NowPlayingCubit extends Cubit<UiState<List<MovieListModel>>> {
+  NowPlayingCubit() : super(StateInitial());
 
   final TmdbRepository _repository = TmdbRepositoryImpl();
   final List<MovieListModel> movieList = List.empty(growable: true);
