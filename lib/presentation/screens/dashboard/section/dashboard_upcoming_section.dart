@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
 import 'package:tmdb/presentation/component/common_loading.dart';
 import 'package:tmdb/presentation/component/common_reload.dart';
-import 'package:tmdb/presentation/component/ui_state.dart';
+import 'package:tmdb/presentation/util/state/ui_state.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/upcoming_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/widgets/dashboard_list_item_widget.dart';
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb/presentation/component/tmdb_search_bar.dart';
 import 'package:tmdb/presentation/component/tmdb_toggle_tab.dart';
+import 'package:tmdb/presentation/screens/dashboard/cubit/dashboard_search_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/now_playing_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/popular_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/upcoming_cubit.dart';
@@ -18,6 +20,16 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            BlocProvider(
+              create: (_) => DashboardSearchCubit(),
+              child: BlocBuilder<DashboardSearchCubit, String>(
+                  builder: (ctx, state) => TmdbSearchBar(
+                        label: "Search",
+                        onValueChanged: (value) =>
+                            ctx.read<DashboardSearchCubit>().updateText(value),
+                        onCompleted: () {},
+                      )),
+            ),
             Container(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
               child: const Text(

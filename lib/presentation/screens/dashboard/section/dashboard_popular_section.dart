@@ -4,7 +4,7 @@ import 'package:tmdb/domain/model/movie_list_model.dart';
 import 'package:tmdb/presentation/component/common_loading.dart';
 import 'package:tmdb/presentation/component/common_reload.dart';
 import 'package:tmdb/presentation/component/tmdb_image_loader.dart';
-import 'package:tmdb/presentation/component/ui_state.dart';
+import 'package:tmdb/presentation/util/state/ui_state.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/popular_cubit.dart';
 
 class DashboardPopularSection extends StatefulWidget {
