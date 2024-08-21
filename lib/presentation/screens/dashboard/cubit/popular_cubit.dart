@@ -1,14 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tmdb/data/repository/tmdb_repository_impl.dart';
+import 'package:tmdb/data/repository/movie_repository_impl.dart';
 import 'package:tmdb/domain/model/api_result.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
-import 'package:tmdb/domain/repository/tmdb_repository.dart';
+import 'package:tmdb/domain/repository/movie_repository.dart';
 import 'package:tmdb/presentation/util/state/ui_state.dart';
 
 class PopularCubit extends Cubit<UiState<List<MovieListModel>>> {
   PopularCubit() : super(StateInitial());
 
-  final TmdbRepository _repository = TmdbRepositoryImpl();
+  final MovieRepository _repository = MovieRepositoryImpl();
 
   void getPopularMovies() {
     emit(StateLoading());
