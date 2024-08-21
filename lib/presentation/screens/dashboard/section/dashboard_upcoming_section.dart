@@ -15,7 +15,8 @@ class DashboardUpcomingSection extends StatefulWidget {
       _DashboardUpcomingSectionState();
 }
 
-class _DashboardUpcomingSectionState extends State<DashboardUpcomingSection> {
+class _DashboardUpcomingSectionState extends State<DashboardUpcomingSection>
+    with AutomaticKeepAliveClientMixin<DashboardUpcomingSection>{
   final _scrollController = ScrollController();
 
   @override
@@ -48,6 +49,7 @@ class _DashboardUpcomingSectionState extends State<DashboardUpcomingSection> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<UpcomingCubit, UiState<List<MovieListModel>>>(
       builder: (context, state) => switch (state) {
         StateInitial() => const SizedBox(),
@@ -94,4 +96,7 @@ class _DashboardUpcomingSectionState extends State<DashboardUpcomingSection> {
       controller: _scrollController,
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
