@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tmdb/presentation/component/tmdb_search_bar.dart';
 import 'package:tmdb/presentation/component/tmdb_toggle_tab.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/dashboard_search_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/now_playing_cubit.dart';
@@ -8,6 +7,7 @@ import 'package:tmdb/presentation/screens/dashboard/cubit/popular_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/upcoming_cubit.dart';
 import 'package:tmdb/presentation/screens/dashboard/section/dashboard_now_playing_section.dart';
 import 'package:tmdb/presentation/screens/dashboard/section/dashboard_popular_section.dart';
+import 'package:tmdb/presentation/screens/dashboard/section/dashboard_search_section.dart';
 import 'package:tmdb/presentation/screens/dashboard/section/dashboard_upcoming_section.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -22,13 +22,7 @@ class DashboardScreen extends StatelessWidget {
           children: [
             BlocProvider(
               create: (_) => DashboardSearchCubit(),
-              child: BlocBuilder<DashboardSearchCubit, String>(
-                  builder: (ctx, state) => TmdbSearchBar(
-                        label: "Search",
-                        onValueChanged: (value) =>
-                            ctx.read<DashboardSearchCubit>().updateText(value),
-                        onCompleted: () {},
-                      )),
+              child: const DashboardSearchSection(),
             ),
             Container(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 8),

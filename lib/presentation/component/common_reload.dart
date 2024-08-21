@@ -5,7 +5,7 @@ class CommonReload extends StatelessWidget {
   const CommonReload({super.key, this.message, required this.onRetry});
 
   final String? message;
-  final void Function() onRetry;
+  final VoidCallback onRetry;
 
   @override
   Widget build(BuildContext context) {

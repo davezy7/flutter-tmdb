@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
 import 'package:tmdb/presentation/component/common_loading.dart';
 import 'package:tmdb/presentation/component/common_reload.dart';
+import 'package:tmdb/presentation/component/tmdb_list_item.dart';
 import 'package:tmdb/presentation/util/state/ui_state.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/upcoming_cubit.dart';
-import 'package:tmdb/presentation/screens/dashboard/widgets/dashboard_list_item_widget.dart';
 
 class DashboardUpcomingSection extends StatefulWidget {
   const DashboardUpcomingSection({super.key});
@@ -86,10 +86,7 @@ class _DashboardUpcomingSectionState extends State<DashboardUpcomingSection>
                       padding: EdgeInsets.all(16),
                       child: CommonLoading(),
                     )
-              : DashboardListItemWidget(
-                  id: movieList[index].id,
-                  item: movieList[index],
-                ),
+              : TmdbListItem(movieList[index]),
       itemCount: context.read<UpcomingCubit>().hasReachedMax
           ? movieList.length
           : movieList.length + 1,
