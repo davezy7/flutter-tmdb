@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
+import 'package:tmdb/navigation/tmdb_navigator.dart';
 import 'package:tmdb/presentation/component/common_loading.dart';
 import 'package:tmdb/presentation/component/common_reload.dart';
 import 'package:tmdb/presentation/component/tmdb_list_item.dart';
@@ -16,7 +17,7 @@ class DashboardUpcomingSection extends StatefulWidget {
 }
 
 class _DashboardUpcomingSectionState extends State<DashboardUpcomingSection>
-    with AutomaticKeepAliveClientMixin<DashboardUpcomingSection>{
+    with AutomaticKeepAliveClientMixin<DashboardUpcomingSection> {
   final _scrollController = ScrollController();
 
   @override
@@ -86,7 +87,12 @@ class _DashboardUpcomingSectionState extends State<DashboardUpcomingSection>
                       padding: EdgeInsets.all(16),
                       child: CommonLoading(),
                     )
-              : TmdbListItem(movieList[index]),
+              : TmdbListItem(
+                  movieList[index],
+                  onItemClicked: (id) {
+                    Navigator.push(context, TmdbNavigator.getDetailRoute(id));
+                  },
+                ),
       itemCount: context.read<UpcomingCubit>().hasReachedMax
           ? movieList.length
           : movieList.length + 1,

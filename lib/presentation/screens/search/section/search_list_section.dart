@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
+import 'package:tmdb/navigation/tmdb_navigator.dart';
 import 'package:tmdb/presentation/component/common_loading.dart';
 import 'package:tmdb/presentation/component/common_reload.dart';
 import 'package:tmdb/presentation/component/tmdb_list_item.dart';
@@ -77,7 +78,12 @@ class _SearchListSectionState extends State<SearchListSection> {
                   padding: EdgeInsets.all(16),
                   child: CommonLoading(),
                 )
-          : TmdbListItem(movieList[index]),
+          : TmdbListItem(
+              movieList[index],
+              onItemClicked: (id) {
+                Navigator.push(context, TmdbNavigator.getDetailRoute(id));
+              },
+            ),
       itemCount: context.read<SearchCubit>().hasReachedMax
           ? movieList.length
           : movieList.length + 1,

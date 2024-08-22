@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
+import 'package:tmdb/navigation/tmdb_navigator.dart';
 import 'package:tmdb/presentation/component/common_loading.dart';
 import 'package:tmdb/presentation/component/common_reload.dart';
 import 'package:tmdb/presentation/component/tmdb_list_item.dart';
@@ -75,18 +76,23 @@ class _DashboardNowPlayingSectionState extends State<DashboardNowPlayingSection>
     final List<MovieListModel> movieList =
         (state as StateSuccess<List<MovieListModel>>).data;
     return ListView.builder(
-      itemBuilder: (BuildContext context, int index) =>
-          index == movieList.length
-              ? state is StateFailed
-                  ? CommonReload(
-                      onRetry: () =>
-                          context.read<NowPlayingCubit>().getNowPlayingMovies(),
-                    )
-                  : const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: CommonLoading(),
-                    )
-              : TmdbListItem(movieList[index]),
+      itemBuilder: (BuildContext context, int index) => index ==
+              movieList.length
+          ? state is StateFailed
+              ? CommonReload(
+                  onRetry: () =>
+                      context.read<NowPlayingCubit>().getNowPlayingMovies(),
+                )
+              : const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: CommonLoading(),
+                )
+          : TmdbListItem(
+              movieList[index],
+              onItemClicked: (id) {
+                Navigator.push(context, TmdbNavigator.getDetailRoute(id));
+              },
+            ),
       itemCount: context.read<NowPlayingCubit>().hasReachedMax
           ? movieList.length
           : movieList.length + 1,

@@ -15,25 +15,34 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocProvider(
-          create: (_) => DetailsCubit()
-            ..setMovieId(movieId)
-            ..getMovieDetails(),
-          child: BlocBuilder<DetailsCubit, UiState<MovieDetailModel>>(
-            builder: (ctx, state) => switch (state) {
-              StateInitial() => const SizedBox(),
-              StateLoading() => Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(32),
-                  child: const CommonLoading(),
-                ),
-              StateFailed() => CommonReload(
-                  onRetry: () => ctx.read<DetailsCubit>().getMovieDetails),
-              StateSuccess() => _successPage(context, state.data),
-            },
+    return BlocProvider(
+      create: (_) => DetailsCubit()
+        ..setMovieId(movieId)
+        ..getMovieDetails(),
+      child: BlocBuilder<DetailsCubit, UiState<MovieDetailModel>>(
+        builder: (ctx, state) => Scaffold(
+          appBar: AppBar(
+            title: state is StateSuccess<MovieDetailModel> ? Text(state.data.title) : null,
+            centerTitle: true,
+            actions: const [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Icon(Icons.bookmark_add_outlined),
+              )
+            ],
           ),
+          body: SafeArea(
+              child: switch (state) {
+            StateInitial() => const SizedBox(),
+            StateLoading() => Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(32),
+                child: const CommonLoading(),
+              ),
+            StateFailed() => CommonReload(
+                onRetry: () => ctx.read<DetailsCubit>().getMovieDetails),
+            StateSuccess() => _successPage(context, state.data),
+          }),
         ),
       ),
     );
@@ -94,8 +103,9 @@ class DetailsScreen extends StatelessWidget {
                     ToggleTabItemModel(
                       title: "About Movie",
                       child: Container(
-                        padding: const EdgeInsets.all(16),
-                        child: Text(movie.overview, textAlign: TextAlign.justify),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child:
+                            Text(movie.overview, textAlign: TextAlign.justify),
                       ),
                     )
                   ],
