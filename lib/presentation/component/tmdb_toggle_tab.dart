@@ -42,7 +42,7 @@ class _TmdbToggleTabState extends State<TmdbToggleTab>
                     child: Text(
                       item.title,
                       maxLines: 1,
-                      style: const TextStyle(fontSize: 16, color: Colors.cyan),
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ))
               .toList(),

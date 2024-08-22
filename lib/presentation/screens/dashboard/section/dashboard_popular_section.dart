@@ -4,6 +4,7 @@ import 'package:tmdb/domain/model/movie_list_model.dart';
 import 'package:tmdb/presentation/component/common_loading.dart';
 import 'package:tmdb/presentation/component/common_reload.dart';
 import 'package:tmdb/presentation/component/tmdb_image_loader.dart';
+import 'package:tmdb/presentation/screens/details/details_screen.dart';
 import 'package:tmdb/presentation/util/state/ui_state.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/popular_cubit.dart';
 
@@ -30,7 +31,7 @@ class _DashboardPopularSectionState extends State<DashboardPopularSection> {
             controller: ScrollController(),
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: _popularItem(index, state.data[index].posterPath),
+              child: _popularItem(index, state.data[index]),
             ),
             itemCount: 10,
             scrollDirection: Axis.horizontal,
@@ -39,17 +40,25 @@ class _DashboardPopularSectionState extends State<DashboardPopularSection> {
     );
   }
 
-  Widget _popularItem(int index, String imgUrl) {
+  Widget _popularItem(int index, MovieListModel movie) {
     return Stack(
       children: [
-        Container(
-            padding: const EdgeInsets.only(left: 16, right: 8),
-            alignment: Alignment.topRight,
-            child: TmdbImageLoader(
-              imageUrl: imgUrl,
-              height: 225,
-              width: 150,
-            )),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => DetailsScreen(movieId: movie.id))
+            );
+          },
+          child: Container(
+              padding: const EdgeInsets.only(left: 16, right: 8),
+              alignment: Alignment.topRight,
+              child: TmdbImageLoader(
+                imageUrl: movie.posterPath,
+                height: 225,
+                width: 150,
+              )),
+        ),
         Align(
           alignment: Alignment.bottomLeft,
           child: Text(

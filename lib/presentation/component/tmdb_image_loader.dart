@@ -7,11 +7,13 @@ class TmdbImageLoader extends StatelessWidget {
     required this.imageUrl,
     this.height = 150,
     this.width = 150,
+    this.borderRadius,
   });
 
   final String imageUrl;
   final double height;
   final double width;
+  final BorderRadiusGeometry? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class TmdbImageLoader extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: borderRadius ?? BorderRadius.circular(12),
           image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
         ),
       ),
