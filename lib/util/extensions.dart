@@ -22,3 +22,7 @@ extension ListNullSafety<T> on List<T>? {
   List<T> orEmpty() => this ?? List<T>.empty();
   List<T> orDefault(List<T> replacementValue) => this ?? replacementValue;
 }
+
+extension DateTimeString on String {
+  String getYear() => DateTime.parse(this).year.toString();
+}

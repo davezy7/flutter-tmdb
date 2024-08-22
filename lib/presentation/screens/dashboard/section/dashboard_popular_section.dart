@@ -5,6 +5,7 @@ import 'package:tmdb/navigation/tmdb_navigator.dart';
 import 'package:tmdb/presentation/component/common_loading.dart';
 import 'package:tmdb/presentation/component/common_reload.dart';
 import 'package:tmdb/presentation/component/tmdb_image_loader.dart';
+import 'package:tmdb/presentation/theme/tmdb_colors.dart';
 import 'package:tmdb/presentation/util/state/ui_state.dart';
 import 'package:tmdb/presentation/screens/dashboard/cubit/popular_cubit.dart';
 
@@ -58,15 +59,26 @@ class _DashboardPopularSectionState extends State<DashboardPopularSection> {
         ),
         Align(
           alignment: Alignment.bottomLeft,
-          child: Text(
-            (index + 1).toString(),
-            style: TextStyle(
-              fontSize: 72,
-              foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 2
-                ..color = Colors.cyan,
-            ),
+          child: Stack(
+            children: [
+              Text(
+                (index + 1).toString(),
+                style: TextStyle(
+                  fontSize: 72,
+                  foreground: Paint()
+                    ..style = PaintingStyle.stroke
+                    ..strokeWidth = 2
+                    ..color = TmdbColors.orange,
+                ),
+              ),
+              Text(
+                (index + 1).toString(),
+                style: TextStyle(
+                  fontSize: 72,
+                  color: Theme.of(context).colorScheme.surface,
+                ),
+              )
+            ],
           ),
         ),
       ],
