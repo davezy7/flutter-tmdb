@@ -4,12 +4,12 @@ class TmdbSearchBar extends StatelessWidget {
   const TmdbSearchBar(
       {super.key,
       required this.label,
-      required this.onValueChanged,
+      this.onValueChanged,
       this.onCompleted,
       this.controller});
 
   final String label;
-  final ValueChanged<String> onValueChanged;
+  final ValueChanged<String>? onValueChanged;
   final VoidCallback? onCompleted;
 
   final TextEditingController? controller;

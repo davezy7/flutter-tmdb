@@ -12,21 +12,19 @@ class MovieRepositoryImpl implements MovieRepository {
   @override
   Future<ApiResult<MovieListWrapperModel>> getNowPlayingMovies(int page) async {
     final apiCall = await _remoteSource.getNowPlayingMovies(page);
-    if (apiCall is ApiSuccess<MovieListResponse>) {
-      final mappedData = apiCall.data.toModel();
-      return ApiSuccess(mappedData);
-    }
-    return ApiFailed((apiCall as ApiFailed).errorMsg);
+    return switch (apiCall) {
+      ApiSuccess<MovieListResponse>() => ApiSuccess(apiCall.data.toModel()),
+      ApiFailed<MovieListResponse>() => ApiFailed(apiCall.errorMsg)
+    };
   }
 
   @override
   Future<ApiResult<MovieListWrapperModel>> getUpcomingMovies(int page) async {
     final apiCall = await _remoteSource.getUpcomingMovies(page);
-    if (apiCall is ApiSuccess<MovieListResponse>) {
-      final mappedData = apiCall.data.toModel();
-      return ApiSuccess(mappedData);
-    }
-    return ApiFailed((apiCall as ApiFailed).errorMsg);
+    return switch (apiCall) {
+      ApiSuccess<MovieListResponse>() => ApiSuccess(apiCall.data.toModel()),
+      ApiFailed<MovieListResponse>() => ApiFailed(apiCall.errorMsg)
+    };
   }
 
   @override
