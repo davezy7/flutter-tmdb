@@ -22,10 +22,10 @@ class TmdbSearchBar extends StatelessWidget {
         onChanged: onValueChanged,
         onEditingComplete: onCompleted,
         controller: controller,
-        decoration: InputDecoration(
+        onTapOutside: (_) { FocusManager.instance.primaryFocus?.unfocus(); },
+        decoration: const InputDecoration(
           labelText: 'Search',
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
-          prefixIcon: const Icon(Icons.search),
+          prefixIcon: Icon(Icons.search),
         ),
         textInputAction: TextInputAction.done,
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/presentation/screens/dashboard/dashboard_screen.dart';
+import 'package:tmdb/presentation/theme/tmdb_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      themeMode: ThemeMode.dark,
+      theme: TmdbTheme.theme,
       home: const DashboardScreen(),
     );
   }

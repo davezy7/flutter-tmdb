@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb/presentation/theme/tmdb_colors.dart';
 
 class TmdbToggleTab extends StatefulWidget {
   final List<ToggleTabItemModel> children;
@@ -32,19 +33,13 @@ class _TmdbToggleTabState extends State<TmdbToggleTab>
     return Column(
       children: [
         TabBar(
-          indicatorColor: Colors.cyan,
           controller: _tabController,
-          dividerColor: Colors.transparent,
-          tabs: widget.children
-              .map((item) => Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16, right: 16, bottom: 8),
-                    child: Text(
-                      item.title,
-                      maxLines: 1,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ))
+          indicatorWeight: 3,
+          tabs: widget.children.map((item) => Text(
+            item.title,
+            maxLines: 1,
+            style: const TextStyle(fontSize: 16),
+          ))
               .toList(),
         ),
         Expanded(
