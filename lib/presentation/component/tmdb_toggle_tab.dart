@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tmdb/presentation/theme/tmdb_colors.dart';
 
 class TmdbToggleTab extends StatefulWidget {
   final List<ToggleTabItemModel> children;
