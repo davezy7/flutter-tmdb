@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/domain/model/movie_list_model.dart';
 import 'package:tmdb/presentation/component/tmdb_search_bar.dart';
 import 'package:tmdb/presentation/screens/search/cubit/search_cubit.dart';
-import 'package:tmdb/presentation/screens/search/search_list_section.dart';
+import 'package:tmdb/presentation/screens/search/section/search_list_section.dart';
 import 'package:tmdb/presentation/util/state/ui_state.dart';
 
 class SearchScreen extends StatelessWidget {
