@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tmdb/presentation/theme/tmdb_colors.dart';
 
 abstract final class TmdbTheme {
@@ -53,6 +54,12 @@ abstract final class TmdbTheme {
     labelPadding: const EdgeInsets.only(bottom: 8)
   );
 
+  static TextTheme textTheme = TextTheme(
+    bodyLarge: GoogleFonts.montserrat(fontSize: 16),
+    bodyMedium: GoogleFonts.montserrat(fontSize: 14),
+    bodySmall: GoogleFonts.montserrat(fontSize: 12),
+  );
+
   static final ThemeData theme = ThemeData(
       colorScheme: colorScheme,
       canvasColor: colorScheme.surface,
@@ -60,5 +67,6 @@ abstract final class TmdbTheme {
       appBarTheme: appBarTheme,
       inputDecorationTheme: inputDecorationTheme,
       tabBarTheme: tabBarTheme,
+      textTheme: textTheme,
       useMaterial3: true);
 }

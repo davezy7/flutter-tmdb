@@ -46,7 +46,7 @@ class _DashboardPopularSectionState extends State<DashboardPopularSection> {
       children: [
         GestureDetector(
           onTap: () {
-            Navigator.push(context, TmdbNavigator.getDetailRoute(movie.id));
+            Navigator.push(context, TmdbNavigator.toDetailRoute(movie.id));
           },
           child: Container(
               padding: const EdgeInsets.only(left: 16, right: 8),

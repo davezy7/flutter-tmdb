@@ -81,7 +81,7 @@ class _SearchListSectionState extends State<SearchListSection> {
           : TmdbListItem(
               movieList[index],
               onItemClicked: (id) {
-                Navigator.push(context, TmdbNavigator.getDetailRoute(id));
+                Navigator.push(context, TmdbNavigator.toDetailRoute(id));
               },
             ),
       itemCount: context.read<SearchCubit>().hasReachedMax

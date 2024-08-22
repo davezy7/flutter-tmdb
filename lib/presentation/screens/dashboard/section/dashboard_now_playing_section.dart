@@ -90,7 +90,7 @@ class _DashboardNowPlayingSectionState extends State<DashboardNowPlayingSection>
           : TmdbListItem(
               movieList[index],
               onItemClicked: (id) {
-                Navigator.push(context, TmdbNavigator.getDetailRoute(id));
+                Navigator.push(context, TmdbNavigator.toDetailRoute(id));
               },
             ),
       itemCount: context.read<NowPlayingCubit>().hasReachedMax
